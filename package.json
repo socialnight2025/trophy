@@ -1,5 +1,6 @@
 {
-  "name": "samurai-3d-website",
+  "name": "trophy",
+  "homepage": "https://socialnight2025.github.io/trophy/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
