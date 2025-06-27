@@ -110,6 +110,40 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@keyframes sakura-fall {
+  0% {
+    transform: translateY(-100px) translateX(0) rotate(var(--rotate-start, 0deg));
+  }
+  30% {
+    transform: translateY(30vh) translateX(calc(var(--sway, 24px) * var(--sway-dir, 1))) rotate(calc((var(--rotate-start, 0deg) + var(--rotate-end, 360deg))/2));
+  }
+  60% {
+    transform: translateY(60vh) translateX(calc(var(--sway, 24px) * var(--sway-dir, 1) * -1)) rotate(calc((var(--rotate-start, 0deg) + var(--rotate-end, 360deg))/2));
+  }
+  100% {
+    transform: translateY(100vh) translateX(0) rotate(var(--rotate-end, 360deg));
+  }
+}
+.sakura-fall {
+  animation-name: sakura-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  will-change: transform;
+}
+
+@keyframes batch-glow-pulse {
+  0% {
+    box-shadow: 0 0 32px 8px #ff0000, 0 0 64px 16px #ff0000aa;
+  }
+  100% {
+    box-shadow: 0 0 48px 16px #ff2222, 0 0 96px 32px #ff0000cc;
+  }
+}
+.batch-glow {
+  box-shadow: 0 0 32px 8px #ff0000, 0 0 64px 16px #ff0000aa;
+  animation: batch-glow-pulse 1.5s infinite alternate;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
