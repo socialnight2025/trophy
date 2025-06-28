@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import sakuraImg from '../assets/sakura.webp';
+import sakuraImg from '../assets/sakurap.webp';
 
 function SakuraPetalsTailwind() {
   const [petals, setPetals] = useState([]);
@@ -15,9 +15,9 @@ function SakuraPetalsTailwind() {
       const newPetal = {
         id: Math.random(),
         left: Math.random() * 100 + 'vw',
-        duration: Math.random() * 5 + 5, // 5-10s
+        duration: Math.random() * 5 + 10, // 5-10s
         delay: Math.random() * 2, // 0-2s
-        size: Math.random() * 16 + 16, // 16-32px
+        size: Math.random() * 8 + 8, // 16-32px
         sway: Math.random() * 24 + 16, // 16-40px
         swayDir,
         rotateStart: Math.random() * 360,

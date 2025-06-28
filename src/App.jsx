@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { motion } from 'framer-motion'
@@ -6,15 +6,22 @@ import SamuraiModel from './components/SamuraiModel'
 import Navigation from './components/Navigation'
 import SakuraPetalsTailwind from './components/SakuraPetalsTailwind'
 import './App.css';
+import './App.font.css';
 
 import bgvideo from "./assets/bgvideo.mp4";
 import creditImg from "./assets/credit.png";
 import logoImg from "./assets/logo.png";
 import batchImg from "./assets/batch4to.jpeg";
+import bgaudio from "./assets/bgaudio.mp3";
+import muteIcon from "./assets/mute.svg";
+import unmuteIcon from "./assets/unmute.svg";
 
 function App() {
   const [animationPhase, setAnimationPhase] = useState('initial') // 'initial', 'rotating', 'moved'
   const [showLargeBatch, setShowLargeBatch] = useState(false);
+  const audioRef = useRef(null);
+  // Start audio muted by default to comply with browser autoplay policies
+  const [muted, setMuted] = useState(true);
 
   useEffect(() => {
     // Start animation after 3 seconds
@@ -32,9 +39,11 @@ function App() {
 
   return (
     <div className="w-full h-screen overflow-hidden relative">
+      {/* Red Circle Background Element - move behind video */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600 rounded-full opacity-20 blur-3xl z-[-1]"></div>
       {/* Background Video */}
       <video
-        className="absolute inset-0 w-full h-full object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-0 !blur-0 !opacity-100"
         src={bgvideo}
         autoPlay
         loop
@@ -60,26 +69,6 @@ function App() {
           />
         </motion.div>
       )}
-      
-      {/* 3D Scene */}
-      <div className="absolute inset-0">
-        <Canvas
-          camera={{ position: [0, 0, 10], fov: 50 }}
-          style={{ background: 'transparent' }}
-        >
-          <ambientLight intensity={0.3} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <pointLight position={[-10, -10, -5]} intensity={0.5} color="#ff4444" />
-          
-          {/* Environment for reflections */}
-          <Environment preset="sunset" />
-          
-          {/* Samurai Model */}
-          <SamuraiModel animationPhase={animationPhase} />
-
-          <OrbitControls enableZoom={false} enablePan={false} />
-        </Canvas>
-      </div>
       
       {/* Content that appears after animation */}
       {animationPhase === 'moved' && (
@@ -116,10 +105,31 @@ function App() {
       
       {/* Sakura Petals Animation (Tailwind) */}
       <SakuraPetalsTailwind />
-      
-      {/* Red Circle Background Element */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600 rounded-full opacity-20 blur-3xl"></div>
 
+      {/* Animated Japanese Text Banner */}
+      <div className="pointer-events-none fixed top-1/2 left-0 w-full z-0 flex items-center justify-center overflow-hidden" style={{transform: 'translateY(-50%)'}}>
+        <div
+          className="whitespace-nowrap animate-marquee font-black text-black otsutome-font"
+          style={{ fontSize: '250px', lineHeight: '1', fontWeight: 900 }}
+        >
+          ソーシャルナイト2025 - 工学部ソラタ講堂にて
+        </div>
+      </div>
+      {/* 3D Scene - move after Japanese text and set z-10 */}
+      <div className="absolute inset-0 z-10">
+        <Canvas
+          camera={{ position: [0, 0, 10], fov: 50 }}
+          style={{ background: 'transparent' }}
+        >
+          <ambientLight intensity={0.3} />
+          <directionalLight position={[10, 10, 5]} intensity={1} />
+          <pointLight position={[-10, -10, -5]} intensity={0.5} color="#ff4444" />
+          <Environment preset="sunset" />
+          <SamuraiModel animationPhase={animationPhase} />
+          <OrbitControls enableZoom={false} enablePan={false} />
+        </Canvas>
+      </div>
+      
       {/* Credit Image Bottom Center */}
       <img
         src={creditImg}
@@ -130,6 +140,37 @@ function App() {
         width={'400px'}
         height={'auto'}
       />
+
+      {/* Background Audio - only render when unmuted */}
+      { !muted && (
+        <audio
+          ref={audioRef}
+          src={bgaudio}
+          autoPlay
+          loop
+        />
+      )}
+      {/* Audio Toggle Button */}
+      <button
+        className="fixed top-4 right-4 z-50 bg-black/10 text-white rounded-full p-3 shadow-lg hover:bg-red-700 transition-colors"
+        onClick={() => {
+          setMuted((m) => {
+            const newMuted = !m;
+            if (audioRef.current && !newMuted) {
+              audioRef.current.play().catch(() => {});
+            }
+            return newMuted;
+          });
+        }}
+        aria-label={muted ? 'Unmute background audio' : 'Mute background audio'}
+      >
+        <img
+          src={muted ? muteIcon : unmuteIcon}
+          alt={muted ? 'Unmute' : 'Mute'}
+          className="w-6 h-6"
+          draggable={false}
+        />
+      </button>
     </div>
   )
 }

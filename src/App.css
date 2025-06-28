@@ -133,15 +133,28 @@
 
 @keyframes batch-glow-pulse {
   0% {
-    box-shadow: 0 0 32px 8px #ff0000, 0 0 64px 16px #ff0000aa;
+    box-shadow: 0 0 32px 8px #210000, 0 0 64px 16px #870101aa;
   }
   100% {
-    box-shadow: 0 0 48px 16px #ff2222, 0 0 96px 32px #ff0000cc;
+    box-shadow: 0 0 48px 16px #1e0101, 0 0 96px 32px #ff0000cc;
   }
 }
 .batch-glow {
-  box-shadow: 0 0 32px 8px #ff0000, 0 0 64px 16px #ff0000aa;
+  box-shadow: 0 0 32px 8px #ff0000, 0 0 64px 16px #770d0daa;
   animation: batch-glow-pulse 1.5s infinite alternate;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 18s linear infinite;
 }
 
 @layer base {
