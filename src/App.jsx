@@ -51,7 +51,7 @@ function App() {
       {/* Loader Spinner */}
       {loading && (
         <div className="loader-bg">
-          <div className="loader"></div>
+          <span className="loader">Load&nbsp;ng</span>
         </div>
       )}
       {/* Red Circle Background Element - move behind video */}
