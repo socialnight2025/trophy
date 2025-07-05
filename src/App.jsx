@@ -13,7 +13,6 @@ import creditImg from "./assets/credit.png";
 import logoImg from "./assets/logo.png";
 import invP from "./assets/invP.jpg";
 import invL from "./assets/invL.jpg";
-import loadingBg from "./assets/loading.jpg";
 import useIsMobile from "./hooks/use-is-mobile";
 import { useState as useLocalState } from 'react';
 import bgaudio from "./assets/bgaudio.mp3";
@@ -150,10 +149,13 @@ function App() {
       <img
         src={creditImg}
         alt="Credit"
-        className="pointer-events-none fixed bottom-4 left-1/2 -translate-x-1/2 w-40  z-50"
-        style={{width: '400px', height: 'auto'}}
+        className="pointer-events-none fixed bottom-4 left-1/2 -translate-x-1/2 z-50"
+        style={{
+          width: isMobile ? '180px' : '400px',
+          height: 'auto'
+        }}
         draggable={false}
-        width={'400px'}
+        width={isMobile ? '180px' : '400px'}
         height={'auto'}
       />
 
