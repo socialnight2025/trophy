@@ -1,3 +1,35 @@
+/* Loader Spinner Styles */
+.loader-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('./assets/loading.jpg') center center/cover no-repeat;
+}
+.loader {
+  width: fit-content;
+  font-size: 40px;
+  font-family: system-ui,sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  -webkit-text-stroke: 1px #000;
+  background:
+    linear-gradient(-60deg,white 45%,#000 0 55%,white 0)
+    0/300% 100% no-repeat text;
+  animation: l3 2s linear infinite;
+}
+.loader:before {
+  content: "Loading";
+}
+@keyframes l3 {
+  0%{background-position: 100%}
+  100%{background-position: 0%}
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 

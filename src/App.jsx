@@ -11,7 +11,11 @@ import './App.font.css';
 import bgvideo from "./assets/bgvideo.mp4";
 import creditImg from "./assets/credit.png";
 import logoImg from "./assets/logo.png";
-import batchImg from "./assets/batch4to.jpeg";
+import invP from "./assets/invP.jpg";
+import invL from "./assets/invL.jpg";
+import loadingBg from "./assets/loading.jpg";
+import useIsMobile from "./hooks/use-is-mobile";
+import { useState as useLocalState } from 'react';
 import bgaudio from "./assets/bgaudio.mp3";
 import muteIcon from "./assets/mute.svg";
 import unmuteIcon from "./assets/unmute.svg";
@@ -22,23 +26,34 @@ function App() {
   const audioRef = useRef(null);
   // Start audio muted by default to comply with browser autoplay policies
   const [muted, setMuted] = useState(true);
+  const isMobile = useIsMobile();
+  // Loading state for 3D and video
+  const [loading, setLoading] = useLocalState(true);
+  const [videoLoaded, setVideoLoaded] = useLocalState(false);
+  const [modelLoaded, setModelLoaded] = useLocalState(false);
 
   useEffect(() => {
-    // Start animation after 3 seconds
-    const timer = setTimeout(() => {
-      setAnimationPhase('rotating')
-      
-      // Move to final position after rotation
-      setTimeout(() => {
-        setAnimationPhase('moved')
-      }, 2000)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [])
+    if (videoLoaded && modelLoaded) {
+      setLoading(false);
+      // Start animation after 3 seconds
+      const timer = setTimeout(() => {
+        setAnimationPhase('rotating')
+        setTimeout(() => {
+          setAnimationPhase('moved')
+        }, 2000)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [videoLoaded, modelLoaded])
 
   return (
     <div className="w-full h-screen overflow-hidden relative">
+      {/* Loader Spinner */}
+      {loading && (
+        <div className="loader-bg">
+          <div className="loader"></div>
+        </div>
+      )}
       {/* Red Circle Background Element - move behind video */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600 rounded-full opacity-20 blur-3xl z-[-1]"></div>
       {/* Background Video */}
@@ -49,6 +64,7 @@ function App() {
         loop
         muted
         playsInline
+        onCanPlayThrough={() => setVideoLoaded(true)}
       />
       {/* Navigation */}
       <Navigation />
@@ -86,8 +102,8 @@ function App() {
           />
           <div className="relative flex justify-center items-center">
             <img
-              src={batchImg}
-              alt="Batch"
+              src={isMobile ? invP : invL}
+              alt="Invitation"
               className={`w-full h-auto object-contain mb-8 rounded-lg shadow-lg transition-all duration-300 cursor-pointer batch-glow ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4' : ''}`}
               draggable={false}
               onClick={() => setShowLargeBatch(true)}
@@ -125,7 +141,7 @@ function App() {
           <directionalLight position={[10, 10, 5]} intensity={1} />
           <pointLight position={[-10, -10, -5]} intensity={0.5} color="#ff4444" />
           <Environment preset="sunset" />
-          <SamuraiModel animationPhase={animationPhase} />
+          <SamuraiModel animationPhase={animationPhase} onModelLoaded={() => setModelLoaded(true)} />
           <OrbitControls enableZoom={false} enablePan={false} />
         </Canvas>
       </div>

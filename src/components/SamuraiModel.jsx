@@ -1,21 +1,26 @@
-import { useRef } from 'react'
+import { useRef,useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
-import treedmodel from "../assets/ronin_samurai_high_poly.glb";
+import treedmodel from "../assets/ronin.glb"
 
 // Preload the model for better performance
 useGLTF.preload(treedmodel)
 
-function SamuraiModel({ animationPhase }) {
+function SamuraiModel({ animationPhase, onModelLoaded }) {
   const groupRef = useRef()
-  const position = useRef(new THREE.Vector3(0, -2, 0))
-  const targetPosition = useRef(new THREE.Vector3(0, -2, 0))
+  const position = useRef(new THREE.Vector3(0, -3, 0))
+  const targetPosition = useRef(new THREE.Vector3(0, -3, 0))
   const rotation = useRef(-100)
 
   // Load the GLB model once
   const { scene } = useGLTF(treedmodel)
+  // Notify parent when model is loaded
+  useEffect(() => {
+    if (scene && onModelLoaded) onModelLoaded();
+    // eslint-disable-next-line
+  }, [scene]);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return
@@ -28,9 +33,9 @@ function SamuraiModel({ animationPhase }) {
 
     // Set target position based on animation phase
     if (animationPhase === 'moved') {
-      targetPosition.current.set(4, -0.5, 0)
+      targetPosition.current.set(4, -1, 5)
     } else {
-      targetPosition.current.set(0, -0.5, 0)
+      targetPosition.current.set(0, -1, 0)
     }
 
     // Smoothly interpolate position towards target
