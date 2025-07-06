@@ -57,7 +57,7 @@ function App() {
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600 rounded-full opacity-20 blur-3xl z-[-1]"></div>
       {/* Background Video */}
       <video
-        className="absolute inset-0 w-full h-full object-cover z-0 !blur-0 !opacity-100"
+        className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
         src={bgvideo}
         autoPlay
         loop
@@ -79,7 +79,7 @@ function App() {
           <img
             src={logoImg}
             alt="Logo"
-            className="w-[90%] h-auto object-contain"
+            className="w-[90%] h-auto object-contain "
             draggable={false}
           />
         </motion.div>
@@ -91,19 +91,19 @@ function App() {
           initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="absolute left-8 top-[300px] transform -translate-y-1/2 z-10 max-w-2xl ps-2 md:ps-60"
+          className="absolute left-0 md:left-8 right-2 top-[300px] transform -translate-y-1/2 z-10 max-w-2xl ps-2 md:ps-60"
         >
           <img
             src={logoImg}
             alt="Logo"
-            className="w-full h-auto object-contain mb-6"
+            className="w-full h-auto object-contain mb-6 mt-28 md:mt-0"
             draggable={false}
           />
           <div className="relative flex justify-center items-center">
             <img
               src={isMobile ? invP : invL}
               alt="Invitation"
-              className={`w-full h-auto object-contain mb-8 rounded-lg shadow-lg transition-all duration-300 cursor-pointer batch-glow ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4' : ''}`}
+              className={`w-full h-auto object-contain mb-8 transition-all duration-300 cursor-pointer batch-glow ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4' : ''}`}
               draggable={false}
               onClick={() => setShowLargeBatch(true)}
             />
@@ -124,8 +124,8 @@ function App() {
       {/* Animated Japanese Text Banner */}
       <div className="pointer-events-none fixed top-1/2 left-0 w-full z-0 flex items-center justify-center overflow-hidden" style={{transform: 'translateY(-50%)'}}>
         <div
-          className="whitespace-nowrap animate-marquee font-black text-black otsutome-font"
-          style={{ fontSize: '250px', lineHeight: '1', fontWeight: 900 }}
+          className="whitespace-nowrap animate-marquee font-black otsutome-font"
+          style={{ fontSize: '250px', lineHeight: '1', fontWeight: 900, color: '#4B2524' }}
         >
           ソーシャルナイト2025 - 工学部ソラタ講堂にて
         </div>
@@ -151,7 +151,7 @@ function App() {
         alt="Credit"
         className="pointer-events-none fixed bottom-4 left-1/2 -translate-x-1/2 z-50"
         style={{
-          width: isMobile ? '180px' : '400px',
+          width: isMobile ? '300px' : '400px',
           height: 'auto'
         }}
         draggable={false}
