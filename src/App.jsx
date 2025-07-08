@@ -96,14 +96,14 @@ function App() {
           <img
             src={logoImg}
             alt="Logo"
-            className="w-full h-auto object-contain mb-6 mt-28 md:mt-0"
+            className="w-full h-auto object-contain mb-6 mt-8"
             draggable={false}
           />
           <div className="relative flex justify-center items-center">
             <img
               src={isMobile ? invL : invL}
               alt="Invitation"
-              className={`w-[90%] md:w-full h-auto object-contain mb-28 transition-all duration-300 cursor-pointer batch-glow ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4' : ''}`}
+              className={`w-[90%] md:w-full h-auto object-contain mb-28 md:mb-2 transition-all duration-300 cursor-pointer batch-glow ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4' : ''}`}
               draggable={false}
               onClick={() => setShowLargeBatch(true)}
             />
