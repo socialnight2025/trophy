@@ -9,6 +9,7 @@ import './App.css';
 import './App.font.css';
 
 import bgvideo from "./assets/bgvideo.mp4";
+import bgvideoImg from "./assets/loading.jpg"; 
 import creditImg from "./assets/credit.png";
 import logoImg from "./assets/logo.png";
 import invP from "./assets/invP.jpg";
@@ -18,6 +19,11 @@ import { useState as useLocalState } from 'react';
 import bgaudio from "./assets/bgaudio.mp3";
 import muteIcon from "./assets/mute.svg";
 import unmuteIcon from "./assets/unmute.svg";
+
+function isAndroid() {
+  if (typeof navigator === 'undefined') return false;
+  return /Android/i.test(navigator.userAgent);
+}
 
 function App() {
   const [animationPhase, setAnimationPhase] = useState('initial') // 'initial', 'rotating', 'moved'
@@ -55,16 +61,25 @@ function App() {
       )}
       {/* Red Circle Background Element - move behind video */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600 rounded-full opacity-20 blur-3xl z-[-1]"></div>
-      {/* Background Video */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
-        src={bgvideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        onCanPlayThrough={() => setVideoLoaded(true)}
-      />
+      {/* Background Video or Fallback Image for Android */}
+      {isAndroid() ? (
+        <img
+          src={bgvideoImg}
+          alt="Background"
+          className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
+          draggable={false}
+        />
+      ) : (
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
+          src={bgvideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlayThrough={() => setVideoLoaded(true)}
+        />
+      )}
       {/* Navigation */}
       <Navigation />
       
