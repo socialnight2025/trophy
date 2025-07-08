@@ -8,11 +8,9 @@ import SakuraPetalsTailwind from './components/SakuraPetalsTailwind'
 import './App.css';
 import './App.font.css';
 
-import bgvideo from "./assets/bgvideo.mp4";
-import bgvideoImg from "./assets/loading.jpg"; 
+import bgimg from "./assets/bgimg.jpg";
 import creditImg from "./assets/credit.png";
 import logoImg from "./assets/logo.png";
-import invP from "./assets/invP.jpg";
 import invL from "./assets/invL.jpg";
 import useIsMobile from "./hooks/use-is-mobile";
 import { useState as useLocalState } from 'react';
@@ -20,10 +18,7 @@ import bgaudio from "./assets/bgaudio.mp3";
 import muteIcon from "./assets/mute.svg";
 import unmuteIcon from "./assets/unmute.svg";
 
-function isAndroid() {
-  if (typeof navigator === 'undefined') return false;
-  return /Android/i.test(navigator.userAgent);
-}
+
 
 function App() {
   const [animationPhase, setAnimationPhase] = useState('initial') // 'initial', 'rotating', 'moved'
@@ -34,8 +29,8 @@ function App() {
   const isMobile = useIsMobile();
   // Loading state for 3D and video
   const [loading, setLoading] = useLocalState(true);
-  const [videoLoaded, setVideoLoaded] = useLocalState(false);
-  const [modelLoaded, setModelLoaded] = useLocalState(false);
+  const [videoLoaded, setVideoLoaded] = useLocalState(true);
+  const [modelLoaded, setModelLoaded] = useLocalState(true);
 
   useEffect(() => {
     if (videoLoaded && modelLoaded) {
@@ -61,25 +56,13 @@ function App() {
       )}
       {/* Red Circle Background Element - move behind video */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-red-600 rounded-full opacity-20 blur-3xl z-[-1]"></div>
-      {/* Background Video or Fallback Image for Android */}
-      {isAndroid() ? (
-        <img
-          src={bgvideoImg}
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
-          draggable={false}
-        />
-      ) : (
-        <video
-          className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
-          src={bgvideo}
-          autoPlay
-          loop
-          muted
-          playsInline
-          onCanPlayThrough={() => setVideoLoaded(true)}
-        />
-      )}
+      {/* Background Image */}
+      <img
+        src={bgimg}
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover z-0 blur-[2px] !opacity-100"
+        draggable={false}
+      />
       {/* Navigation */}
       <Navigation />
       
@@ -116,7 +99,7 @@ function App() {
           />
           <div className="relative flex justify-center items-center">
             <img
-              src={isMobile ? invL : invL}
+              src={invL}
               alt="Invitation"
               className={`w-[90%] md:w-full h-auto object-contain mb-28 md:mb-2 transition-all duration-300 cursor-pointer batch-glow ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4' : ''}`}
               draggable={false}
@@ -139,7 +122,7 @@ function App() {
       {/* Animated Japanese Text Banner */}
       <div className="pointer-events-none fixed top-1/2 left-0 w-full z-0 flex items-center justify-center overflow-hidden" style={{transform: 'translateY(-50%)'}}>
         <div
-          className="whitespace-nowrap animate-marquee font-black otsutome-font"
+          className="whitespace-nowrap animate-marquee font-black "
           style={{ fontSize: '250px', lineHeight: '1', fontWeight: 900, color: '#4B2524' }}
         >
           ソーシャルナイト2025 - 工学部ソラタ講堂にて

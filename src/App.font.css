@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Otsutome';
-  src: url('../assets/OtsutomeFont_Ver3_16.ttf') format('truetype');
+  src: url('../src/assets/OtsutomeFont_Ver3_16.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
