@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import * as THREE from 'three'
 
-import treedmodel from "../assets/ronin.glb"
+import treedmodel from "../assets/a_samurai.glb"
 
 // Preload the model for better performance
 useGLTF.preload(treedmodel)
@@ -33,7 +33,7 @@ function SamuraiModel({ animationPhase, onModelLoaded }) {
 
     // Set target position based on animation phase
     if (animationPhase === 'moved') {
-      targetPosition.current.set(4, -1, 5)
+      targetPosition.current.set(4, -1, 3)
     } else {
       targetPosition.current.set(0, -1, 0)
     }
