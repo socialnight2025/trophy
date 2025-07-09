@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'Otsutome';
-  src: url('../src/assets/OtsutomeFont_Ver3_16.ttf') format('truetype');
+  font-family: 'Electroharmonix';
+  src: url('../src/assets/Electroharmonix.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
 .otsutome-font {
-  font-family: 'Otsutome', sans-serif !important;
+  font-family: 'Electroharmonix', sans-serif !important;
 }
