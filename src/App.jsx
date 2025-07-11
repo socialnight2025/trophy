@@ -9,9 +9,9 @@ import './App.css';
 import './App.font.css';
 
 import bgimg from "./assets/bgimg.jpg";
+import batch from "./assets/batch.jpeg"; // Ensure this path is correct
 import creditImg from "./assets/credit.png";
 import logoImg from "./assets/logo.png";
-import invL from "./assets/invL.jpg";
 import useIsMobile from "./hooks/use-is-mobile";
 import { useState as useLocalState } from 'react';
 import bgaudio from "./assets/bgaudio.mp3";
@@ -97,14 +97,25 @@ function App() {
             className="w-full h-auto object-contain mb-6 mt-8"
             draggable={false}
           />
-          <div className="relative flex justify-center items-center">
+          <div className="relative flex flex-col justify-center items-center">
             <img
-              src={invL}
-              alt="Invitation"
+              src={batch}
+              alt="Batch"
               className={`w-[90%] md:w-full h-auto object-contain mb-28 md:mb-2 transition-all duration-300 cursor-pointer batch-glow rounded-md ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4 rounded-md' : ''}`}
               draggable={false}
               onClick={() => setShowLargeBatch(true)}
             />
+            {/* Download Button for Batch Image */}
+            <div className="w-full flex justify-center mt-2">
+              <a
+                href={batch}
+                download="batch.jpeg"
+                className="bg-gradient-to-r from-red-500 to-red-900 text-white px-4 py-2 text-xl rounded font-medium focus:ring ring-black ring-opacity-10 shadow hover:scale-105 transition-transform duration-300 z-1000 gradient element-to-rotate"
+                style={{zIndex: 1100}}
+              >
+                Download Image
+              </a>
+            </div>
             {showLargeBatch && (
               <div
                 className="fixed inset-0 bg-black/70 z-[99] cursor-pointer rounded-sm"
@@ -129,7 +140,7 @@ function App() {
         </div>
       </div>
       {/* 3D Scene - move after Japanese text and set z-10 */}
-      <div className="absolute inset-0 z-10">
+      <div className="absolute inset-0 z-0">
         <Canvas
           camera={{ position: [0, 0, 10], fov: 50 }}
           style={{ background: 'transparent' }}
