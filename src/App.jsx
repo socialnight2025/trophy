@@ -101,12 +101,12 @@ function App() {
             <img
               src={batch}
               alt="Batch"
-              className={`w-[90%] md:w-full h-auto object-contain mb-28 md:mb-2 transition-all duration-300 cursor-pointer batch-glow rounded-md ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4 rounded-md' : ''}`}
+              className={`w-[90%] md:w-full h-auto object-contain mb-8  md:mb-2 transition-all duration-300 cursor-pointer batch-glow rounded-md ${showLargeBatch ? 'z-[100] fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90vw] h-auto max-h-[90vh] bg-black/80 p-4 rounded-md' : ''}`}
               draggable={false}
               onClick={() => setShowLargeBatch(true)}
             />
             {/* Download Button for Batch Image */}
-            <div className="w-full flex justify-center mt-2">
+            <div className="w-full flex justify-center mt-2 mb-20  md:2">
               <a
                 href={batch}
                 download="batch.jpeg"
